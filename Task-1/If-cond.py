@@ -22,8 +22,10 @@ if city in Australia:
     print(f"{city} is in Australia")
 elif city in UAE:
     print(f"{city} is in UAE")
-else:
+elif city in India:
     print(f"{city} is in India")
+else:
+    print("City Invalid! Not Found.")
     
 #3. Write a program to check if two cities belong to the same country
 Australia = ["Sydney", "Melbourne", "Brisbane", "Perth"]
