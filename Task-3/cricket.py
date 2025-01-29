@@ -8,7 +8,9 @@ weights = {
     'Stumping': 2,
     'Run Out': 3,
     'Missed Run Out': -2,
-    'Direct Hit': 4
+    'Direct Hit': 4,
+    'Missed Stumping': -2, 
+    'Fumble': -1 
 }
 
 data = {
@@ -20,7 +22,7 @@ data = {
     'Position': ['Slip', 'Mid-Off', 'Long-On', 'Deep Fine Leg', 'Short Fine Leg', 'Deep Square Leg'],
     'Short Description': ['Clean Pick', 'Good Throw', 'Fumble', 'Catch', 'Dropped Catch', 'Run Out'],
     'Pick': ['Clean Pick', 'Good Throw', 'Fumble', 'Catch', 'Dropped Catch', 'None'],
-    'Throw': ['Run Out', 'Missed Run Out', 'None', 'None', 'None', 'Run Out'],
+    'Throw': ['Run Out', 'Missed Run Out', 'None', 'None', 'None', 'Direct Hit'],  
     'Runs': [2, 1, -1, 3, -2, 4],
     'Overcount': [1, 1, 1, 1, 1, 1],
     'Venue': ['Stadium X', 'Stadium X', 'Stadium X', 'Stadium X', 'Stadium X', 'Stadium X']
@@ -34,10 +36,13 @@ def calculate_ps(row):
     runs_saved = row['Runs']
     pick_score = weights.get(action, 0)
     throw_score = weights.get(throw, 0)
-    return pick_score + throw_score + runs_saved
+    return (pick_score + throw_score + runs_saved)
 
 df['Performance Score'] = df.apply(calculate_ps, axis=1)
 
 print(df[['Match No.', 'Player Name', 'Short Description', 'Performance Score']])
 
-df.to_excel('C:/Users/Dell/Documents/Python Dev Internship/Advance Tasks/fielding_analysis_with_ps.xlsx', index=False)
+output_path = 'C:/Users/Dell/Documents/Python Dev Internship/Advance Tasks/fielding_analysis_with_ps.xlsx'
+df.to_excel(output_path, index=False)
+
+print(f"Excel file saved successfully at {output_path}")
